@@ -1,8 +1,8 @@
-import 'package:clinic_app/app/interface/firebase_repository_base_interface.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../core/responses/response_builder.dart';
 import '../core/responses/response_defult.dart';
+import '../interface/firebase_repository_base_interface.dart';
 import '../models/base_model.dart';
 
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ColorsConst { //Consts para as cores
-  static const primaryColor = Color(0xffffcc00); //#FFCC00
+  static const primaryColor = Color.fromRGBO(156, 204, 101, 1); //#FFCC00
   
   static const standardText = Color(0xFF707070);
   static const Color errorColor = Color(0xFFD32F2F); 

@@ -1,15 +1,15 @@
-import 'package:clinic_app/app/models/clinic_model.dart';
-import 'package:clinic_app/app/repositories/atendente_repository.dart';
-import 'package:clinic_app/app/repositories/clinic_repository.dart';
-import 'package:clinic_app/app/shared/stores/user_store.dart';
-import 'package:clinic_app/app/shared/widgets/lock_screen.dart';
-import 'package:clinic_app/app/shared/widgets/message_dialog.dart';
-import 'package:clinic_app/app/shared/widgets/unlock_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
-import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobx/mobx.dart';
 
+import '../../models/clinic_model.dart';
+import '../../repositories/atendente_repository.dart';
+import '../../repositories/clinic_repository.dart';
+import '../../shared/stores/user_store.dart';
+import '../../shared/widgets/lock_screen.dart';
+import '../../shared/widgets/message_dialog.dart';
+import '../../shared/widgets/unlock_screen.dart';
 import '../login_controller.dart';
 
 part 'home_atendente_controller.g.dart';
@@ -80,7 +80,8 @@ abstract class _HomeAtendenteControllerBase with Store {
   }
 
   Stream<ClinicModel> getClinic() async* {
-    yield* await clinicRepository.getClinicsByAtendente(userStore.userModel.clinic)
+    yield* await clinicRepository.getClinicsByAtendente(
+      userStore.userModel.clinic)
       .then((res) => res.object);
   }
 

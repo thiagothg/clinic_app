@@ -1,14 +1,11 @@
-import 'package:clinic_app/app/controllers/atendente/home_atendente_controller.dart';
-import 'package:clinic_app/app/controllers/clinic_controller.dart';
-import 'package:clinic_app/app/core/consts/app_conts.dart';
-import 'package:clinic_app/app/models/clinic_model.dart';
-import 'package:clinic_app/app/shared/validation/validation.dart';
-import 'package:clinic_app/app/shared/widgets/form_button.dart';
-import 'package:clinic_app/app/shared/widgets/global_scaffold.dart';
-import 'package:clinic_app/app/shared/widgets/text_form_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
+import '../../../../controllers/atendente/home_atendente_controller.dart';
+import '../../../../models/clinic_model.dart';
+import '../../../../shared/validation/validation.dart';
+import '../../../../shared/widgets/form_button.dart';
+import '../../../../shared/widgets/text_form_field.dart';
 
 class FormClinic extends StatefulWidget {
   final bool view;
@@ -27,7 +24,8 @@ class FormClinic extends StatefulWidget {
   _FormClinicState createState() => _FormClinicState();
 }
 
-class _FormClinicState extends ModularState<FormClinic, HomeAtendenteController> {
+class _FormClinicState extends 
+  ModularState<FormClinic, HomeAtendenteController> {
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -111,9 +109,7 @@ class _FormClinicState extends ModularState<FormClinic, HomeAtendenteController>
       value: controller.dropDownValue,
       onChanged: readOnly
           ? null
-          : (String value) {
-              controller.setDropDownValue(value);
-            },
+          : controller.setDropDownValue,
     );
   }
 }

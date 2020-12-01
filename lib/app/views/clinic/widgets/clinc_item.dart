@@ -1,9 +1,10 @@
-import 'package:clinic_app/app/controllers/clinic_controller.dart';
-import 'package:clinic_app/app/core/enums/app_enums.dart';
-import 'package:clinic_app/app/models/clinic_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../../controllers/clinic_controller.dart';
+import '../../../core/enums/app_enums.dart';
+import '../../../models/clinic_model.dart';
 
 class ClinicItem extends StatefulWidget {
   final ClinicModel model;
@@ -94,7 +95,7 @@ class _ClinicItemState extends ModularState<ClinicItem, ClinicController> {
         Icons.menu,
         color: Theme.of(context).primaryColor,
       ),
-      itemBuilder: (BuildContext context) {
+      itemBuilder: (context) {
         return <PopupMenuEntry>[
           popUpMenuItem(
             text: 'Visualizar',

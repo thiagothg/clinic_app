@@ -1,5 +1,6 @@
-import 'package:clinic_app/app/interface/base_model_interface.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../interface/base_model_interface.dart';
 
 class BaseModel implements IBaseModelInterface {
   String id;

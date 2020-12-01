@@ -1,19 +1,21 @@
-import 'package:clinic_app/app/controllers/client/home_client_controller.dart';
-import 'package:clinic_app/app/core/consts/app_conts.dart';
-import 'package:clinic_app/app/models/clinic_model.dart';
-import 'package:clinic_app/app/shared/widgets/global_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
+
+import '../../../../controllers/client/home_client_controller.dart';
+import '../../../../core/consts/app_conts.dart';
+import '../../../../models/clinic_model.dart';
+import '../../../../shared/widgets/global_scaffold.dart';
 
 class SearchBarWidget extends StatefulWidget {
   final BuildContext ancestorContext;
   final VoidCallback refesh;
 
-  const SearchBarWidget({Key key, this.ancestorContext, this.refesh}) : super(key: key);
+  const SearchBarWidget({Key key, 
+    this.ancestorContext, 
+    this.refesh}) : super(key: key);
 
   @override
   _SearchBarWidgetState createState() => _SearchBarWidgetState();
@@ -22,7 +24,7 @@ class SearchBarWidget extends StatefulWidget {
 class _SearchBarWidgetState extends State<SearchBarWidget> {
   final HomeClientController controller = Modular.get<HomeClientController>();
 
-  GoogleMapsPlaces places = GoogleMapsPlaces(apiKey: ConstsApp.apiKeyGooglePlaces);
+  var places = GoogleMapsPlaces(apiKey: ConstsApp.apiKeyGooglePlaces);
 
   @override
   Widget build(BuildContext context) {
@@ -91,16 +93,17 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
 
 
   Future<void> _getMarkersLocation(LocationModel pos) async {
-    var clinisNearBy = await controller.clinicRepository.getClinicsNearBy(pos).then<Stream<List<ClinicModel>>>((res) => res.object);
+    var clinisNearBy = await controller
+      .clinicRepository
+      .getClinicsNearBy(pos)
+      .then<Stream<List<ClinicModel>>>((res) => res.object);
     clinisNearBy.listen(_updateMarkers);
   }
 
   void _updateMarkers(List<ClinicModel> documentList) {
     print(documentList);
     print(controller.markers);
-    documentList.forEach((ClinicModel model) {
-      controller.addMarkerClinics(model);
-    });
+    documentList.forEach(controller.addMarkerClinics);
 
     setState(() {});
     widget.refesh();

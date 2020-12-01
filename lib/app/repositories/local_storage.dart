@@ -1,7 +1,8 @@
-import 'package:clinic_app/app/core/consts/app_conts.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
+
+import '../core/consts/app_conts.dart';
 
 class LocalStorage {
   final hive = Hive;

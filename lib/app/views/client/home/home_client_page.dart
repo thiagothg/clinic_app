@@ -1,11 +1,11 @@
-import 'package:clinic_app/app/core/consts/app_conts.dart';
-import 'package:clinic_app/app/models/clinic_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
+
 import '../../../controllers/client/home_client_controller.dart';
+import '../../../core/consts/app_conts.dart';
+import '../../../models/clinic_model.dart';
 import 'widgets/search_bar_widget.dart';
 
 class HomeClientPage extends StatefulWidget {
@@ -20,10 +20,8 @@ class _HomeClientPageState
     extends ModularState<HomeClientPage, HomeClientController> {
   //use 'controller' variable to access controller
   
-  LatLng _initialcameraposition = LatLng(20.5937, 78.9629);
+  final LatLng _initialcameraposition = LatLng(20.5937, 78.9629);
  
-  
-
   @override
   void dispose() {
     super.dispose();
@@ -55,7 +53,9 @@ class _HomeClientPageState
             Observer(
               builder: (context) {
                 return GoogleMap(
-                  initialCameraPosition: CameraPosition(target: _initialcameraposition),
+                  initialCameraPosition: CameraPosition(
+                    target: _initialcameraposition
+                  ),
                   mapType: MapType.normal,
                   onMapCreated: _onMapCreated,
                   myLocationEnabled: true,
@@ -90,14 +90,14 @@ class _HomeClientPageState
   }
 
   Future<void> _getMarkersLocation(LocationModel pos) async {
-    var clinisNearBy = await controller.clinicRepository.getClinicsNearBy(pos).then<Stream<List<ClinicModel>>>((res) => res.object);
+    var clinisNearBy = await controller.clinicRepository
+      .getClinicsNearBy(pos)
+      .then<Stream<List<ClinicModel>>>((res) => res.object);
     clinisNearBy.listen(_updateMarkers);
   }
 
   void _updateMarkers(List<ClinicModel> documentList) {
-    documentList.forEach((ClinicModel model) {
-      controller.addMarkerClinics(model);
-    });
+    documentList.forEach(controller.addMarkerClinics);
 
     setState(() {});
     print(controller.markers);
@@ -106,7 +106,7 @@ class _HomeClientPageState
   Future<void> updateMap() async {
     var latLng = controller.cameraPosition.target;
     print(latLng);
-    var pos = await controller.updateMap(latLng.latitude, latLng.longitude, '');
+    await controller.updateMap(latLng.latitude, latLng.longitude, '');
     setState(() {});
     
   }

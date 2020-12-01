@@ -1,20 +1,23 @@
 
-import 'package:clinic_app/app/core/consts/app_conts.dart';
-import 'package:clinic_app/app/core/consts/routers_const.dart';
-import 'package:clinic_app/app/core/enums/app_enums.dart';
-import 'package:clinic_app/app/models/atendente_model.dart';
-import 'package:clinic_app/app/models/clinic_model.dart';
-import 'package:clinic_app/app/repositories/atendente_repository.dart';
-import 'package:clinic_app/app/repositories/clinic_repository.dart';
-import 'package:clinic_app/app/shared/widgets/lock_screen.dart';
-import 'package:clinic_app/app/shared/widgets/message_dialog.dart';
-import 'package:clinic_app/app/shared/widgets/unlock_screen.dart';
+import 'package:clinic_app/app/core/consts/colors_consts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:mobx/mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+
+import '../core/consts/app_conts.dart';
+import '../core/consts/routers_const.dart';
+import '../core/enums/app_enums.dart';
+import '../models/atendente_model.dart';
+import '../models/clinic_model.dart';
+import '../repositories/atendente_repository.dart';
+import '../repositories/clinic_repository.dart';
+import '../shared/widgets/lock_screen.dart';
+import '../shared/widgets/message_dialog.dart';
+import '../shared/widgets/unlock_screen.dart';
 
 part 'clinic_controller.g.dart';
 
@@ -39,7 +42,7 @@ abstract class _ClinicControllerBase with Store {
   @observable 
   bool isLoading = false;
 
-  GoogleMapsPlaces places = GoogleMapsPlaces(apiKey: ConstsApp.apiKeyGooglePlaces);
+  var places = GoogleMapsPlaces(apiKey: ConstsApp.apiKeyGooglePlaces);
 
   @computed
   Function get editPressed => (!isLoading) ? onTapEdit : null;
@@ -113,7 +116,8 @@ abstract class _ClinicControllerBase with Store {
         cnpj: cnpfTextController.text.trim(),
         phone: phoneTextController.text.trim(),
         end: enderecoController.text.trim(),
-        location: (point.latitude != null && point.longitude != null) ? point : clinicModel.location
+        location: (point.latitude != null 
+          && point.longitude != null) ? point : clinicModel.location
       );
       clinic.setDocumentId(clinicModel.id);
       clinic.createdAt = clinicModel.getCreateTime();
@@ -137,7 +141,8 @@ abstract class _ClinicControllerBase with Store {
 
   Future<void> getClinic(String id) async {
     // lockScreen(currentContext, text: 'Carregando...');
-    var clinic = await clinicRepository.getById(id).then<ClinicModel>((res) => res.object);
+    var clinic = await clinicRepository
+      .getById(id).then<ClinicModel>((res) => res.object);
     if(clinic != null) {
       nameTextController.text = clinic.name;
       phoneTextController.text = clinic.phone;
@@ -157,7 +162,7 @@ abstract class _ClinicControllerBase with Store {
       case PopUpMenuOptions.deleteItem:
         showDialog(
             context: context,
-            builder: (BuildContext context) {
+            builder: (context) {
               return AlertDialog(
                 title: Text('Excluir Clínica'),
                 content: Text('Deseja realmente excluir esta clínica?'),
@@ -196,37 +201,34 @@ abstract class _ClinicControllerBase with Store {
       .getAtendentesByClinic(id)
       .then<List<AtendenteModel>>((res) => res.object);
 
-    if(atendente.length > 0) {
+    if(atendente.isNotEmpty) {
       unlockScreen(context);
-      showMessageDialog(context,
-        title: 'Erro',
-        content:
-            'Não foi possível concluir a operação. Registro possui relacionametos.',
-        actions: [
-          FlatButton(
-            child: Text('Ok'),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          )
-      ]);
+      await Future.delayed(Duration(milliseconds: 200));
+
+      Fluttertoast.showToast(
+        msg: 'Não foi possível concluir a operação. '
+        'Registro possui relacionametos.',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 5,
+        backgroundColor: Colors.redAccent
+      );
     } else {
       var result = await clinicRepository.delete(id);
 
       unlockScreen(context);
 
       if (result.success) {
-        // showMessageDialog(context,
-        //   title: 'Sucesso',
-        //   content: 'Operação concluída com sucesso!',
-        //   actions: [
-        //     FlatButton(
-        //       child: Text('Ok'),
-        //       onPressed: () async {
-        //         Navigator.pop(context);
-        //       },
-        //     )
-        //   ]);
+        await Future.delayed(Duration(milliseconds: 200));
+        
+        Fluttertoast.showToast(
+          msg: "Operação concluída com sucesso!",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 5,
+          backgroundColor: ColorsConst.background
+        );
+        
       } else {
         _failedOperation(context);
       }
@@ -235,18 +237,13 @@ abstract class _ClinicControllerBase with Store {
   }
 
   _failedOperation(BuildContext context) {
-    showMessageDialog(context,
-        title: 'Erro',
-        content:
-            'Não foi possível concluir a operação. Tente novamente mais tarde',
-        actions: [
-          FlatButton(
-            child: Text('Ok'),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          )
-        ]);
+    Fluttertoast.showToast(
+      msg: "Não foi possível concluir a operação. Tente novamente mais tarde!",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 8,
+      backgroundColor: Colors.redAccent
+    );
   }
 
   successOperation(BuildContext context) {

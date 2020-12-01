@@ -1,14 +1,14 @@
 
 import 'dart:async';
 
-import 'package:clinic_app/app/core/consts/app_conts.dart';
-import 'package:clinic_app/app/core/responses/response_builder.dart';
-import 'package:clinic_app/app/core/responses/response_defult.dart';
-import 'package:clinic_app/app/models/atendente_model.dart';
-import 'package:clinic_app/app/models/clinic_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
-import 'package:location/location.dart';
+
+import '../core/consts/app_conts.dart';
+import '../core/responses/response_builder.dart';
+import '../core/responses/response_defult.dart';
+import '../models/atendente_model.dart';
+import '../models/clinic_model.dart';
 import 'firebase_repository_base.dart';
 
 
@@ -30,7 +30,7 @@ class ClinicRepository extends FirebaseRepositoyBase<ClinicModel> {
         .collection(collection)
         // .where('users', arrayContains: id)
         .snapshots()
-        .asyncMap((groupSnap) => groupsToPairs(groupSnap));
+        .asyncMap(groupsToPairs);
 
       return ResponseBuilder.success<Stream>(
           object: result);
@@ -55,10 +55,10 @@ class ClinicRepository extends FirebaseRepositoyBase<ClinicModel> {
       var result = await firestore
         .collection(collection)
         .where('name', isGreaterThanOrEqualTo: condition)
-        .where('name', isLessThan: condition +'z')
+        .where('name', isLessThan: '${condition}z')
         // .get();
         .snapshots()
-        .asyncMap((groupSnap) => groupsToPairs(groupSnap));
+        .asyncMap(groupsToPairs);
 
       return ResponseBuilder.success<Stream>(
           object: result);
@@ -92,7 +92,7 @@ class ClinicRepository extends FirebaseRepositoyBase<ClinicModel> {
             .get()
             .then((res) {
               print(res.docs.length);
-              if(res.docs.length > 0) {
+              if(res.docs.isNotEmpty) {
                 model.atendenteModel = AtendenteModel.fromMap(res.docs.first);
               } else {
                 model.atendenteModel = AtendenteModel(

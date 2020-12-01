@@ -1,14 +1,14 @@
-import 'package:clinic_app/app/core/consts/app_conts.dart';
-import 'package:clinic_app/app/core/consts/routers_const.dart';
-import 'package:clinic_app/app/core/enums/access_profile.dart';
-import 'package:clinic_app/app/interface/auth_repository_interface.dart';
-import 'package:clinic_app/app/models/user_model.dart';
-import 'package:clinic_app/app/repositories/local_storage.dart';
-import 'package:clinic_app/app/repositories/user_repository.dart';
-import 'package:clinic_app/app/shared/stores/user_store.dart';
-import 'package:flutter/material.dart';
-import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobx/mobx.dart';
+
+import '../core/consts/app_conts.dart';
+import '../core/consts/routers_const.dart';
+import '../core/enums/access_profile.dart';
+import '../interface/auth_repository_interface.dart';
+import '../models/user_model.dart';
+import '../repositories/local_storage.dart';
+import '../repositories/user_repository.dart';
+import '../shared/stores/user_store.dart';
 
 part 'splash_controller.g.dart';
 
@@ -36,15 +36,16 @@ abstract class _SplashControllerBase with Store {
   checkUserLoggedIn() async {
     await localStorage.init();
 
-    final String usuario =
+    final usuario =
         localStorage.read(key: LocalStorageConstants.user);
-    final String password =
+    final password =
         localStorage.read(key: LocalStorageConstants.userPassword);
 
     if(usuario != null && password != null) {
 
       var user = UserModel.userList().firstWhere((e) 
-        => e.usuario == usuario?.trim() && e.password.trim() == password?.trim(), orElse: () => null);
+        => e.usuario == usuario?.trim() 
+          && e.password.trim() == password?.trim(), orElse: () => null);
 
       if(user != null) {
         var screen = RoutersConst.homeScreen;
@@ -59,7 +60,7 @@ abstract class _SplashControllerBase with Store {
           screen = RoutersConst.clientHomeScreen;
         }
 
-        Modular.to.pushNamedAndRemoveUntil(screen, (Route<dynamic> route) => false);
+        Modular.to.pushNamedAndRemoveUntil(screen, (route) => false);
       } else {
 
         var result = await userRepository.filter()
@@ -73,7 +74,7 @@ abstract class _SplashControllerBase with Store {
           var user = UserModel.fromMap(doc);
 
           userStore.userModel = user;
-          final LocalStorage localStorage = LocalStorage();
+          final localStorage = LocalStorage();
             await localStorage.add(
             key: LocalStorageConstants.user,
             value: user.usuario,
@@ -84,7 +85,8 @@ abstract class _SplashControllerBase with Store {
           );
         await authRepository.signIn();
 
-        Modular.to.pushNamedAndRemoveUntil(RoutersConst.atendenteHomeScreen, (Route<dynamic> route) => false);
+        Modular.to.pushNamedAndRemoveUntil(RoutersConst.atendenteHomeScreen, 
+          (route) => false);
         }  else { 
           Modular.to.pushNamedAndRemoveUntil(RoutersConst.loginScreen, 
             (route) => false

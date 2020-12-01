@@ -14,7 +14,8 @@ String validatePassword(String password) =>
 String validateName(String name) =>
     name.length >= 3 ? null : 'O nome deve ter no mínimo 3 caracteres';
 
-String validateCnpj(String cnpj) => (CNPJ.isValid(cnpj)) ? null : 'CNPJ inválido';
+String validateCnpj(String cnpj) => 
+  (CNPJ.isValid(cnpj)) ? null : 'CNPJ inválido';
 
 String validatePhone(String phone) =>
     RegExp(r"^\([1-9]{2}\) (?:[2-8]|9[1-9])[0-9]{3}\-[0-9]{4}$")

@@ -1,8 +1,7 @@
-import 'package:clinic_app/app/repositories/user_repository.dart';
-
-import '../controllers/login_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../controllers/login_controller.dart';
+import '../repositories/user_repository.dart';
 import '../views/login/login_page.dart';
 
 class LoginModule extends ChildModule {

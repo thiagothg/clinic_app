@@ -1,8 +1,8 @@
-import 'package:clinic_app/app/controllers/login_controller.dart';
-import 'package:clinic_app/app/views/home/home_page.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import '../controllers/home_controller.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import '../controllers/login_controller.dart';
+import '../views/home/home_page.dart';
 
 
 

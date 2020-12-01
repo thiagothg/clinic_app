@@ -1,12 +1,13 @@
-import 'package:clinic_app/app/core/consts/app_conts.dart';
-import 'package:clinic_app/app/core/consts/assets_const.dart';
-import 'package:clinic_app/app/models/clinic_model.dart';
-import 'package:clinic_app/app/shared/widgets/error_body.dart';
-import 'package:clinic_app/app/shared/widgets/loading_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
 import '../../../controllers/atendente/home_atendente_controller.dart';
+import '../../../core/consts/app_conts.dart';
+import '../../../core/consts/assets_const.dart';
+import '../../../models/clinic_model.dart';
+import '../../../shared/widgets/error_body.dart';
+import '../../../shared/widgets/loading_body.dart';
 import 'pages/form_clinic.dart';
 
 class HomeAtendentePage extends StatefulWidget {
@@ -95,8 +96,9 @@ class _HomeAtendentePageState
                         controller.setData(snapshot.data);
                         return body(snapshot.data);
                       }
-                      else
+                      else {
                         return empty();
+                      }
                       break;
                   }
                   

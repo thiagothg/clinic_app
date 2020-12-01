@@ -1,7 +1,6 @@
 import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:clinic_app/app/controllers/atendente/home_atendente_controller.dart';
 import 'package:clinic_app/app/modules/home_atendente/home_atendente_module.dart';
 
 void main() {
@@ -9,7 +8,7 @@ void main() {
   // HomeAtendenteController homeatendente;
   //
   setUp(() {
-    //     homeatendente = HomeAtendenteModule.to.get<HomeAtendenteController>();
+    //  homeatendente = HomeAtendenteModule.to.get<HomeAtendenteController>();
   });
 
   group('HomeAtendenteController Test', () {

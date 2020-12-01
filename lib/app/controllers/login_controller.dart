@@ -1,15 +1,16 @@
-import 'package:clinic_app/app/core/consts/app_conts.dart';
-import 'package:clinic_app/app/core/consts/routers_const.dart';
-import 'package:clinic_app/app/core/enums/access_profile.dart';
-import 'package:clinic_app/app/interface/auth_repository_interface.dart';
-import 'package:clinic_app/app/models/user_model.dart';
-import 'package:clinic_app/app/repositories/local_storage.dart';
-import 'package:clinic_app/app/repositories/user_repository.dart';
-import 'package:clinic_app/app/shared/stores/user_store.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mobx/mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+
+import '../core/consts/app_conts.dart';
+import '../core/consts/routers_const.dart';
+import '../core/enums/access_profile.dart';
+import '../interface/auth_repository_interface.dart';
+import '../models/user_model.dart';
+import '../repositories/local_storage.dart';
+import '../repositories/user_repository.dart';
+import '../shared/stores/user_store.dart';
 
 part 'login_controller.g.dart';
 
@@ -30,12 +31,14 @@ abstract class _LoginControllerBase with Store {
   @observable
   String usuario = "";
 
+  // ignore: use_setters_to_change_properties
   @action
   void setUsuario(String value) => usuario = value;
 
   @observable
   String password = "";
 
+  // ignore: use_setters_to_change_properties
   @action
   void setPassword(String value) => password = value;
 
@@ -73,11 +76,12 @@ abstract class _LoginControllerBase with Store {
 
   getUser() async {
     var user = UserModel.userList().firstWhere((e) 
-      => e.usuario == usuario.trim() && e.password.trim() == password, orElse: () => null);
+      => e.usuario == usuario.trim() && 
+        e.password.trim() == password, orElse: () => null);
 
     if(user != null) {
       userStore.userModel = user;
-      final LocalStorage localStorage = LocalStorage();
+      final localStorage = LocalStorage();
         await localStorage.add(
         key: LocalStorageConstants.user,
         value: user.usuario,
@@ -96,7 +100,8 @@ abstract class _LoginControllerBase with Store {
         screen = RoutersConst.clientHomeScreen;
       }
 
-      Modular.to.pushNamedAndRemoveUntil(screen, (Route<dynamic> route) => false);
+      Modular.to.pushNamedAndRemoveUntil(screen, 
+        (route) => false);
     } else {
       var result = await userRepository.filter()
         .where('login', isEqualTo: usuario.trim())
@@ -104,12 +109,12 @@ abstract class _LoginControllerBase with Store {
         .limit(1)
         .get();
 
-      if(result.docs.length > 0) {
+      if(result.docs.isNotEmpty) {
         var doc = result.docs.first;
         var user = UserModel.fromMap(doc);
 
         userStore.userModel = user;
-        final LocalStorage localStorage = LocalStorage();
+        final localStorage = LocalStorage();
           await localStorage.add(
           key: LocalStorageConstants.user,
           value: user.usuario,
@@ -120,7 +125,8 @@ abstract class _LoginControllerBase with Store {
         );
         await authRepository.signIn();
 
-        Modular.to.pushNamedAndRemoveUntil(RoutersConst.atendenteHomeScreen, (Route<dynamic> route) => false);
+        Modular.to.pushNamedAndRemoveUntil(RoutersConst.atendenteHomeScreen, 
+          (route) => false);
       } else {
         Fluttertoast.showToast(
           msg: "Usuário ou senha incorretos. Por favor tente novamente!",
@@ -140,11 +146,11 @@ abstract class _LoginControllerBase with Store {
     await _deleteUserFromLocalStorage();
     await authRepository.signOut();
     Modular.to.pushNamedAndRemoveUntil(
-        RoutersConst.loginScreen, (Route<dynamic> route) => false);
+        RoutersConst.loginScreen, (route) => false);
   }
 
   _deleteUserFromLocalStorage() async {
-    final LocalStorage localStorage = LocalStorage();
+    final localStorage = LocalStorage();
 
     await localStorage.delete(key: LocalStorageConstants.user);
     await localStorage.delete(key: LocalStorageConstants.userPassword);

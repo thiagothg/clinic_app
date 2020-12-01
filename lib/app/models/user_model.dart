@@ -1,5 +1,6 @@
-import 'package:clinic_app/app/core/enums/access_profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../core/enums/access_profile.dart';
 
 class UserModel  {
 

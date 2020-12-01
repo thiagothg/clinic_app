@@ -1,9 +1,10 @@
-import 'package:clinic_app/app/shared/widgets/custom_icon_button.dart';
-import 'package:clinic_app/app/shared/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
 import '../../controllers/login_controller.dart';
+import '../../shared/widgets/custom_icon_button.dart';
+import '../../shared/widgets/custom_text_field.dart';
 
 class LoginPage extends StatefulWidget {
   final String title;
@@ -87,10 +88,13 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                                 ),
                                 child: controller.loading ?
                                   CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation(Colors.white),
+                                    valueColor: AlwaysStoppedAnimation
+                                    (Colors.white),
                                   ) : Text('Login'),
                                 color: Theme.of(context).primaryColor,
-                                disabledColor: Theme.of(context).primaryColor.withOpacity(0.5),
+                                disabledColor: Theme.of(context)
+                                  .primaryColor
+                                  .withOpacity(0.5),
                                 textColor: Colors.white,
                                 onPressed: controller.loginPressed,
                               ),

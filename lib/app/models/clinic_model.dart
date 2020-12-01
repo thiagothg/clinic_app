@@ -1,8 +1,8 @@
 
-import 'package:clinic_app/app/models/atendente_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 
+import 'atendente_model.dart';
 import 'base_model.dart';
 
 

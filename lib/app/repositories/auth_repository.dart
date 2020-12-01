@@ -1,9 +1,10 @@
-import 'package:clinic_app/app/interface/auth_repository_interface.dart';
-import 'package:clinic_app/app/shared/widgets/global_scaffold.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 import '../core/responses/response_builder.dart';
 import '../core/responses/response_defult.dart';
+import '../interface/auth_repository_interface.dart';
+import '../shared/widgets/global_scaffold.dart';
 
 
 class AuthRepository implements IAuthRepository {

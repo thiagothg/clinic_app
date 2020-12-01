@@ -1,6 +1,7 @@
-import 'package:clinic_app/app/controllers/atendente_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
+import '../../../controllers/atendente_controller.dart';
 
 class SearchBarPopUp extends StatefulWidget {
 
@@ -8,11 +9,12 @@ class SearchBarPopUp extends StatefulWidget {
   _SearchBarPopUpState createState() => _SearchBarPopUpState();
 }
 
-class _SearchBarPopUpState extends ModularState<SearchBarPopUp, AtendenteController> {
+class _SearchBarPopUpState extends 
+  ModularState<SearchBarPopUp, AtendenteController> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      onChanged: (String text) {
+      onChanged: (text) {
         controller.setFetchClinicaPopUpCondition(text);
         print(controller.fetchClinicaPopUpCondition);
         setState(() {

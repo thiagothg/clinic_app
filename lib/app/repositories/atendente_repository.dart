@@ -1,11 +1,12 @@
 
 import 'dart:async';
 
-import 'package:clinic_app/app/core/responses/response_builder.dart';
-import 'package:clinic_app/app/core/responses/response_defult.dart';
-import 'package:clinic_app/app/models/atendente_model.dart';
-import 'package:clinic_app/app/models/clinic_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../core/responses/response_builder.dart';
+import '../core/responses/response_defult.dart';
+import '../models/atendente_model.dart';
+import '../models/clinic_model.dart';
 import 'firebase_repository_base.dart';
 
 
@@ -27,7 +28,7 @@ class AtendenteRepository extends FirebaseRepositoyBase<AtendenteModel> {
         .collection(collection)
         // .where('users', arrayContains: id)
         .snapshots()
-        .asyncMap((groupSnap) => groupsToPairs(groupSnap));
+        .asyncMap(groupsToPairs);
 
       return ResponseBuilder.success<Stream>(
           object: result);
@@ -70,10 +71,10 @@ class AtendenteRepository extends FirebaseRepositoyBase<AtendenteModel> {
         .get()
         .then((res) {
           print(res);
-          return res.docs.map<AtendenteModel>((e) => AtendenteModel.fromMap(e)).toList();
+          return res.docs.map<AtendenteModel>((e) 
+            => AtendenteModel.fromMap(e)).toList();
         });
         
-
       return ResponseBuilder.success<List<AtendenteModel>>(
           object: result);
     } on Exception catch (e) {

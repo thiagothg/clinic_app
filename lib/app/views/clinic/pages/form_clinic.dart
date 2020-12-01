@@ -1,12 +1,13 @@
-import 'package:clinic_app/app/controllers/clinic_controller.dart';
-import 'package:clinic_app/app/core/consts/app_conts.dart';
-import 'package:clinic_app/app/shared/validation/validation.dart';
-import 'package:clinic_app/app/shared/widgets/form_button.dart';
-import 'package:clinic_app/app/shared/widgets/global_scaffold.dart';
-import 'package:clinic_app/app/shared/widgets/text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
+import '../../../controllers/clinic_controller.dart';
+import '../../../core/consts/app_conts.dart';
+import '../../../shared/validation/validation.dart';
+import '../../../shared/widgets/form_button.dart';
+import '../../../shared/widgets/global_scaffold.dart';
+import '../../../shared/widgets/text_form_field.dart';
 
 class FormClinic extends StatefulWidget {
   final bool view;
@@ -82,7 +83,9 @@ class _FormClinicState extends ModularState<FormClinic, ClinicController> {
                     );
                     if (p != null) {
                         // get detail (lat/lng)
-                        var detail = await controller.places.getDetailsByPlaceId(p.placeId);
+                        var detail = await controller
+                          .places
+                          .getDetailsByPlaceId(p.placeId);
                         final lat = detail.result.geometry.location.lat;
                         final lng = detail.result.geometry.location.lng;
                         controller.enderecoController.text = p.description;
@@ -132,9 +135,7 @@ class _FormClinicState extends ModularState<FormClinic, ClinicController> {
       value: controller.dropDownValue,
       onChanged: readOnly
           ? null
-          : (String value) {
-              controller.setDropDownValue(value);
-            },
+          : controller.setDropDownValue,
     );
   }
 }

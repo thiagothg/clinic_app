@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>532432716246-aujs9v9ol30ppc4kdkp6dbr231fifku3.apps.googleusercontent.com</string>
+	<string>532432716246-7l3lvg9n73hm60c9dg1lcau5tinbihgn.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.532432716246-aujs9v9ol30ppc4kdkp6dbr231fifku3</string>
+	<string>com.googleusercontent.apps.532432716246-7l3lvg9n73hm60c9dg1lcau5tinbihgn</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBDv_YMQOLKYCdUWqW_4IdY8DiiBlE_IWk</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.clinicApp</string>
+	<string>com.rodrigues.clinicApp</string>
 	<key>PROJECT_ID</key>
 	<string>clinic-app-296621</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +29,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:532432716246:ios:d5557cb5020ca104bda477</string>
+	<string>1:532432716246:ios:892e7cc5209c5523bda477</string>
 	<key>DATABASE_URL</key>
 	<string>https://clinic-app-296621.firebaseio.com</string>
 </dict>

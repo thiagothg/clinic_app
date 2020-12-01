@@ -1,19 +1,22 @@
-import 'package:clinic_app/app/core/consts/routers_const.dart';
-import 'package:clinic_app/app/core/enums/app_enums.dart';
-import 'package:clinic_app/app/models/atendente_model.dart';
-import 'package:clinic_app/app/models/clinic_model.dart';
-import 'package:clinic_app/app/repositories/atendente_repository.dart';
-import 'package:clinic_app/app/repositories/clinic_repository.dart';
-import 'package:clinic_app/app/shared/widgets/error_body.dart';
-import 'package:clinic_app/app/shared/widgets/loading_body.dart';
-import 'package:clinic_app/app/shared/widgets/lock_screen.dart';
-import 'package:clinic_app/app/shared/widgets/message_dialog.dart';
-import 'package:clinic_app/app/shared/widgets/unlock_screen.dart';
+import 'package:clinic_app/app/core/consts/colors_consts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mobx/mobx.dart';
+
+import '../core/consts/routers_const.dart';
+import '../core/enums/app_enums.dart';
+import '../models/atendente_model.dart';
+import '../models/clinic_model.dart';
+import '../repositories/atendente_repository.dart';
+import '../repositories/clinic_repository.dart';
+import '../shared/widgets/error_body.dart';
+import '../shared/widgets/loading_body.dart';
+import '../shared/widgets/lock_screen.dart';
+import '../shared/widgets/message_dialog.dart';
+import '../shared/widgets/unlock_screen.dart';
 
 part 'atendente_controller.g.dart';
 
@@ -168,7 +171,8 @@ abstract class _AtendenteControllerBase with Store {
   }
 
   Stream<List<ClinicModel>> getPopUpListClinic() async* {
-    yield* await clinicRepository.getClinicsBy(fetchClinicaPopUpCondition.trim()).then((res) {
+    yield* await clinicRepository.getClinicsBy(
+        fetchClinicaPopUpCondition.trim()).then((res) {
       return res.object;
     });
   }
@@ -182,7 +186,7 @@ abstract class _AtendenteControllerBase with Store {
       case PopUpMenuOptions.deleteItem:
         showDialog(
             context: context,
-            builder: (BuildContext context) {
+            builder: (context) {
               return AlertDialog(
                 title: Text('Excluir Atendente'),
                 content: Text('Deseja realmente excluir esta atendente?'),
@@ -222,35 +226,26 @@ abstract class _AtendenteControllerBase with Store {
     unlockScreen(context);
 
     if (res.success) {
-      showMessageDialog(globalScaffoldKey.currentContext,
-        title: 'Sucesso',
-        content: 'Operação concluída com sucesso!',
-        actions: [
-          FlatButton(
-            child: Text('Ok'),
-            onPressed: () async {
-              Navigator.pop(globalScaffoldKey.currentContext);
-            },
-          )
-      ]);
+      Fluttertoast.showToast(
+        msg: "Operação concluída com sucesso!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 5,
+        backgroundColor: ColorsConst.background
+      );
     } else {
-      _failedOperation(globalScaffoldKey.currentContext);
+      _failedOperation(context);
     }
   }
 
   _failedOperation(BuildContext context) {
-    showMessageDialog(context,
-        title: 'Erro',
-        content:
-            'Não foi possível concluir a operação. Tente novamente mais tarde',
-        actions: [
-          FlatButton(
-            child: Text('Ok'),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          )
-        ]);
+    Fluttertoast.showToast(
+      msg: "Não foi possível concluir a operação. Tente novamente mais tarde!",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 8,
+      backgroundColor: Colors.redAccent
+    );
   }
 
   successOperation(BuildContext context) {
@@ -273,7 +268,7 @@ abstract class _AtendenteControllerBase with Store {
   fetchClinica(BuildContext context) {
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (context) {
         return alertDialog();
       }
     );
@@ -303,7 +298,7 @@ abstract class _AtendenteControllerBase with Store {
                     default:
                       print(snapshot?.data);
                       if(snapshot?.data?.length != null) {
-                        if(snapshot.data.length > 0) {
+                        if(snapshot.data.isNotEmpty) {
                           return listViewPopUpMenu(snapshot.data);
                         } else {
                           return emptyBody();
@@ -327,7 +322,7 @@ abstract class _AtendenteControllerBase with Store {
       width: 400,
       child: ListView.builder(
           itemCount: list.length,
-          itemBuilder: (context, int index) {
+          itemBuilder: (context, index) {
             var model = list[index];
             return Column(
               children: [

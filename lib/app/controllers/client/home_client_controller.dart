@@ -1,15 +1,16 @@
 import 'dart:async';
 
-import 'package:clinic_app/app/controllers/login_controller.dart';
-import 'package:clinic_app/app/core/consts/app_conts.dart';
-import 'package:clinic_app/app/models/clinic_model.dart';
-import 'package:clinic_app/app/repositories/clinic_repository.dart';
-import 'package:clinic_app/app/shared/stores/user_store.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:mobx/mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+
+import '../../core/consts/app_conts.dart';
+import '../../models/clinic_model.dart';
+import '../../repositories/clinic_repository.dart';
+import '../../shared/stores/user_store.dart';
+import '../login_controller.dart';
 
 part 'home_client_controller.g.dart';
 
@@ -81,7 +82,8 @@ abstract class _HomeClientControllerBase with Store implements Disposable {
   }
 
   @action
-  Future<LocationModel> updateMap(double lat, double lng, String description) async {
+  Future<LocationModel> updateMap(double lat, double lng,
+     String description) async {
     markers.clear();
     var pos = await location.getLocation();
     addMarker(
@@ -104,7 +106,9 @@ abstract class _HomeClientControllerBase with Store implements Disposable {
     return loc;
   }
 
-  Future<void> addMarker(LocationModel pos, String title, String description) async {
+  Future<void> addMarker(LocationModel pos, String title, 
+    String description) async {
+
     var markerId = MarkerId(pos.latitude.toString() + pos.longitude.toString());
     var _marker = Marker(
       markerId: markerId,
@@ -119,16 +123,16 @@ abstract class _HomeClientControllerBase with Store implements Disposable {
   }
 
   Future<void> addMarkerClinics(ClinicModel model) async {
-    print('CLinic: ${model.name} - lat: ${model.location.latitude} long: ${model.location.longitude}');
-    print('Ate: ${model?.atendenteModel?.name}');
-    var markerId = MarkerId(model.location.latitude.toString() + model.location.longitude.toString());
+    var markerId = MarkerId(model.location.latitude.toString() + 
+      model.location.longitude.toString());
+
     var _marker = Marker(
       markerId: markerId,
       position: LatLng(model.location.latitude, model.location.longitude),
-      // icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.defaultMarker),
       infoWindow: InfoWindow(
         title: '${model.name} - ${model.phone}',
-        snippet: 'Atendente: ${model?.atendenteModel?.name} \n End: ${model.end} ',
+        snippet: 'Atendente: ${model?.atendenteModel?.name} '
+        '\n End: ${model.end} ',
         onTap: () {
           print('tap info');
         }

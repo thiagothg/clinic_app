@@ -1,12 +1,13 @@
-import 'package:clinic_app/app/core/consts/routers_const.dart';
-import 'package:clinic_app/app/models/atendente_model.dart';
-import 'package:clinic_app/app/shared/widgets/error_body.dart';
-import 'package:clinic_app/app/shared/widgets/loading_body.dart';
-import 'package:clinic_app/app/views/atendente/widgets/atendente_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import '../../controllers/atendente_controller.dart';
+import '../../core/consts/routers_const.dart';
+import '../../models/atendente_model.dart';
+import '../../shared/widgets/error_body.dart';
+import '../../shared/widgets/loading_body.dart';
+import 'widgets/atendente_item.dart';
 
 class AtendentePage extends StatefulWidget {
   final String title;
@@ -65,10 +66,11 @@ class _AtendentePageState
             return loadingBody();
             break;
           default:
-            if(snapshot.data.length > 0)
+            if(snapshot.data.isNotEmpty) {
               return body(snapshot.data);
-            else
+            } else {
               return emptyBody();
+            }
             break;
         }
       },

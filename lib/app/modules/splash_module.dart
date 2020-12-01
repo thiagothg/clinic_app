@@ -1,8 +1,8 @@
-import 'package:clinic_app/app/repositories/user_repository.dart';
-import 'package:clinic_app/app/views/splash/splash_page.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import '../controllers/splash_controller.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import '../repositories/user_repository.dart';
+import '../views/splash/splash_page.dart';
 
 
 

@@ -4,7 +4,7 @@ lockScreen(BuildContext context, {@required String text}) {
   showDialog(
       barrierDismissible: false,
       context: context,
-      builder: (BuildContext context) {
+      builder: (context) {
         return WillPopScope(
           // ignore: missing_return
           onWillPop: () {},

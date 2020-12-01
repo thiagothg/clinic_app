@@ -1,7 +1,8 @@
 
 
-import 'package:clinic_app/app/models/atendente_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../models/atendente_model.dart';
 import 'firebase_repository_base.dart';
 
 

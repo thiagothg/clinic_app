@@ -1,11 +1,12 @@
-import 'package:clinic_app/app/controllers/atendente_controller.dart';
-import 'package:clinic_app/app/shared/validation/validation.dart';
-import 'package:clinic_app/app/shared/widgets/custom_icon_button.dart';
-import 'package:clinic_app/app/shared/widgets/form_button.dart';
-import 'package:clinic_app/app/shared/widgets/text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
+import '../../../controllers/atendente_controller.dart';
+import '../../../shared/validation/validation.dart';
+import '../../../shared/widgets/custom_icon_button.dart';
+import '../../../shared/widgets/form_button.dart';
+import '../../../shared/widgets/text_form_field.dart';
 
 class FormAtendentePage extends StatefulWidget {
   final bool view;
@@ -13,13 +14,18 @@ class FormAtendentePage extends StatefulWidget {
   final Function onTapButton;
   final Function buttonPressed;
   
-  const FormAtendentePage({Key key, this.view = false, this.labelButton, this.onTapButton, this.buttonPressed}) : super(key: key);
+  const FormAtendentePage({Key key, 
+    this.view = false, 
+    this.labelButton, 
+    this.onTapButton, 
+    this.buttonPressed}) : super(key: key);
 
   @override
   _FormAtendentePageState createState() => _FormAtendentePageState();
 }
 
-class _FormAtendentePageState extends ModularState<FormAtendentePage, AtendenteController> {
+class _FormAtendentePageState extends 
+  ModularState<FormAtendentePage, AtendenteController> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -107,8 +113,8 @@ class _FormAtendentePageState extends ModularState<FormAtendentePage, AtendenteC
       style: TextStyle(
         color: Colors.grey
       ),
-      validator: (String value) {
-        return value.length != 0 ? null : 'Selecione uma clínica';
+      validator: (value) {
+        return value.isNotEmpty ? null : 'Selecione uma clínica';
       },
       decoration: InputDecoration(
         suffixIcon: IconButton(

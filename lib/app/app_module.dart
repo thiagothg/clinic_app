@@ -1,18 +1,17 @@
-import 'package:clinic_app/app/core/consts/routers_const.dart';
-import 'package:clinic_app/app/modules/atendente_module.dart';
-import 'package:clinic_app/app/modules/home_module.dart';
-import 'package:clinic_app/app/modules/login_module.dart';
-import 'package:clinic_app/app/modules/splash_module.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import 'app_controller.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter/material.dart';
-import 'package:clinic_app/app/app_widget.dart';
-
+import 'app_widget.dart';
+import 'core/consts/routers_const.dart';
 import 'interface/auth_repository_interface.dart';
+import 'modules/atendente_module.dart';
 import 'modules/clinic_module.dart';
 import 'modules/home_atendente/home_atendente_module.dart';
 import 'modules/home_client/home_client_module.dart';
+import 'modules/home_module.dart';
+import 'modules/login_module.dart';
+import 'modules/splash_module.dart';
 import 'repositories/auth_repository.dart';
 import 'shared/stores/user_store.dart';
 
@@ -41,7 +40,8 @@ class AppModule extends MainModule {
       transition: TransitionType.rightToLeftWithFade
     ),
 
-    ModularRouter(RoutersConst.atendenteHomeScreen, module: HomeAtendenteModule(),
+    ModularRouter(RoutersConst.atendenteHomeScreen, 
+      module: HomeAtendenteModule(),
       transition: TransitionType.rightToLeftWithFade
     ),
   ];

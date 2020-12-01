@@ -1,8 +1,9 @@
-import 'package:clinic_app/app/core/consts/app_conts.dart';
-import 'package:clinic_app/app/core/consts/assets_const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
 import '../../controllers/splash_controller.dart';
+import '../../core/consts/app_conts.dart';
+import '../../core/consts/assets_const.dart';
 
 class SplashPage extends StatefulWidget {
   final String title;

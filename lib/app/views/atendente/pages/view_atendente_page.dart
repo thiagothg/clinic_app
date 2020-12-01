@@ -1,7 +1,7 @@
-import 'package:clinic_app/app/controllers/atendente_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../controllers/atendente_controller.dart';
 import 'form_atendente.dart';
 
 class ViewAtendentePage extends StatefulWidget {
@@ -13,7 +13,8 @@ class ViewAtendentePage extends StatefulWidget {
   _ViewAtendentePageState createState() => _ViewAtendentePageState();
 }
 
-class _ViewAtendentePageState extends ModularState<ViewAtendentePage, AtendenteController> {
+class _ViewAtendentePageState extends 
+  ModularState<ViewAtendentePage, AtendenteController> {
 
   @override
   void initState() { 

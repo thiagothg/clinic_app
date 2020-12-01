@@ -8,7 +8,10 @@ class CardWidget extends StatefulWidget {
   final Function onTap;
   
   const CardWidget({Key key, 
-    this.iconImg, this.titleCard = '', this.iconData, this.onTap}) : super(key: key);
+    this.iconImg, 
+    this.titleCard = '', 
+    this.iconData, 
+    this.onTap}) : super(key: key);
 
   @override
   _CardWidgetState createState() => _CardWidgetState();

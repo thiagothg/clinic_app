@@ -1,9 +1,10 @@
-import 'package:clinic_app/app/controllers/atendente_controller.dart';
-import 'package:clinic_app/app/core/enums/app_enums.dart';
-import 'package:clinic_app/app/models/atendente_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../../controllers/atendente_controller.dart';
+import '../../../core/enums/app_enums.dart';
+import '../../../models/atendente_model.dart';
 
 class AtendenteItem extends StatefulWidget {
   final AtendenteModel model;
@@ -14,7 +15,8 @@ class AtendenteItem extends StatefulWidget {
   _AtendenteItemState createState() => _AtendenteItemState();
 }
 
-class _AtendenteItemState extends ModularState<AtendenteItem, AtendenteController> {
+class _AtendenteItemState extends 
+  ModularState<AtendenteItem, AtendenteController> {
   @override
   Widget build(BuildContext context) {
     print(widget.model.login);
@@ -70,7 +72,8 @@ class _AtendenteItemState extends ModularState<AtendenteItem, AtendenteControlle
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 3),
-                child: Text('Cliníca: ${widget.model.clinicModel.name} - ${widget.model.clinicModel.cnpj}',
+                child: Text('Cliníca: ${widget.model.clinicModel.name} '
+                  '- ${widget.model.clinicModel.cnpj}',
                   overflow: TextOverflow.fade
                 ),
               ),
@@ -97,7 +100,7 @@ class _AtendenteItemState extends ModularState<AtendenteItem, AtendenteControlle
         Icons.menu,
         color: Theme.of(context).primaryColor,
       ),
-      itemBuilder: (BuildContext context) {
+      itemBuilder: (context) {
         return <PopupMenuEntry>[
           popUpMenuItem(
             text: 'Visualizar',

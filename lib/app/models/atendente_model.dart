@@ -1,9 +1,9 @@
 
-import 'package:clinic_app/app/core/enums/access_profile.dart';
-import 'package:clinic_app/app/models/clinic_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../core/enums/access_profile.dart';
 import 'base_model.dart';
+import 'clinic_model.dart';
 
 
 class AtendenteModel extends BaseModel {
