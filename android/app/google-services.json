@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "532432716246",
+    "firebase_url": "https://clinic-app-296621.firebaseio.com",
+    "project_id": "clinic-app-296621",
+    "storage_bucket": "clinic-app-296621.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:532432716246:android:7f8784c27e80c9bbbda477",
+        "android_client_info": {
+          "package_name": "com.example.clinic_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "532432716246-f1ouuo7t11cudj7iftsc8ksgtu3un9qh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaqvXI3SrAevZbpQdwkbtXwNu3jTsswFs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "532432716246-f1ouuo7t11cudj7iftsc8ksgtu3un9qh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "532432716246-aujs9v9ol30ppc4kdkp6dbr231fifku3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.clinicApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

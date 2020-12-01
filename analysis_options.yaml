@@ -1,0 +1,9 @@
+include: package:effective_dart/analysis_options.yaml
+
+linter:
+  rules:
+    public_member_api_docs: false
+    avoid_function_literals_in_foreach_class: false
+    type_annotate_public_apis: false
+    avoid_function_literals_in_foreeach_calls: false
+    avoid_function_literals_in_foreach_calls: false
